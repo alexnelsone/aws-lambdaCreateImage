@@ -45,7 +45,7 @@ import time
  
 # for local testing set profile
 #boto3.setup_default_session(profile_name='nelsone')
-boto3.setup_default_session("profile_name='cah-medbia")
+
 current_session = boto3.session.Session()
 current_region = current_session.region_name
 
