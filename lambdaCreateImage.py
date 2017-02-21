@@ -45,6 +45,7 @@ import time
  
 # for local testing set profile
 #boto3.setup_default_session(profile_name='nelsone')
+boto3.setup_default_session("profile_name='cah-medbia")
 current_session = boto3.session.Session()
 current_region = current_session.region_name
 
@@ -127,7 +128,7 @@ def create_image(ec2, image_type):
                 response = ec2_client.create_image(InstanceId=instance_id,Name=image_name)
                 
                 print("Created image with id: " + response["ImageId"])
-                create_tags_for_image(response, server_name, timestamp)
+                create_tags_for_image(response, server_name, timestamp, instance_id)
                 
                 
                 
@@ -135,7 +136,7 @@ def create_image(ec2, image_type):
         print("create_image error: " + str(e)) 
     
     
-def create_tags_for_image(image, server_name, timestamp):
+def create_tags_for_image(image, server_name, timestamp, instance_id):
     
     #this function adds a Name tag to the created image
     
@@ -149,7 +150,9 @@ def create_tags_for_image(image, server_name, timestamp):
         Tags=[
         {
             'Key': 'Name',
-            'Value': name_tag
+            'Value': name_tag,
+            'Key': 'instanceId',
+            'Value': instance_id
         },
         ]
     )
